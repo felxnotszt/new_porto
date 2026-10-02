@@ -94,8 +94,8 @@ const DATA = {
   ],
 
   kontak: {
-    email: "aldenpetra33@email.com",
-    wa: "0895386173900",
+    email: "aldenpetra33@gmail.com",
+    wa: "62895386173900",
     github: "github.com/felxnotszt",
     linkedin: "linkedin.com/in/novalden-petra-2aa561293/",
   },
