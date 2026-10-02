@@ -454,7 +454,11 @@ function Contact() {
     setSent(true);
   };
 
-  const contact = DATA.kontak;
+  // const contact = DATA.kontak;
+    const contact = {
+    wa: "6281234567890",
+    waDisplay: "0812 3456 7890",
+  };
 
   return (
     <section id="kontak">
@@ -487,7 +491,7 @@ function Contact() {
                 rel="noopener noreferrer"
               >
                 <small>WhatsApp</small>
-                {contact.wa}
+                {contact.waDisplay}
               </a>
             </li>
 
