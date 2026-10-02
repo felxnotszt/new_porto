@@ -427,6 +427,7 @@ function Contact() {
   });
 
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (key) => (event) => {
     setForm({
@@ -435,24 +436,63 @@ function Contact() {
     });
   };
 
-  const submit = () => {
-    if (!form.nama || !form.email || !form.pesan) {
-      return;
+  const submit = async (event) => { 
+    event.preventDefault(); 
+    
+    if (!form.nama || !form.email || !form.pesan) { 
+      alert("Semua kolom harus diisi."); 
+      return; 
     }
 
-    const body = encodeURIComponent(
-      `${form.pesan}\n\nDari: ${form.nama} (${form.email})`
-    );
-
-    window.location.href =
-      `mailto:${DATA.kontak.email}` +
-      `?subject=${encodeURIComponent(
-        "Pesan dari " + form.nama
-      )}` +
-      `&body=${body}`;
-
-    setSent(true);
-  };
+    setLoading(true); 
+    
+    try { 
+      const response = await fetch( 
+        "https://formsubmit.co/ajax/aldenpetra33@gmail.com", 
+        { 
+          method: "POST", 
+          headers: { 
+            "Content-Type": "application/json", 
+            Accept: "application/json", 
+          }, 
+          body: JSON.stringify({ 
+            name: form.nama, 
+            email: form.email, 
+            message: form.pesan, 
+            
+            _subject: `Pesan baru dari ${form.nama}`, 
+            _template: "table", 
+            _captcha: "false", 
+          }), 
+        } 
+      ); 
+      
+      const data = await response.json(); 
+      
+      console.log("Response FormSubmit:", data); 
+      
+      if (data.success) { 
+        setSent(true); 
+        
+        setForm({ 
+          nama: "", 
+          email: "", 
+          pesan: "", });
+        } else { 
+          alert( 
+            "Pesan gagal dikirim. Silakan coba beberapa saat lagi." 
+          ); 
+        } 
+      } catch (error) { 
+        console.error("Error:", error); 
+        
+        alert( 
+          "Terjadi kesalahan saat mengirim pesan." 
+        ); 
+      } finally { 
+        setLoading(false); 
+      } 
+    };
 
   const contact = DATA.kontak;
 
@@ -475,7 +515,8 @@ function Contact() {
 
             <li>
               <a
-                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${contact.email}`}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contact.email
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -524,20 +565,17 @@ function Contact() {
             aria-label="Form kontak"
             className="form-box"
           >
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
-                submit();
-              }}
-            >
+            <form onSubmit={submit}>
 
               <label>
                 Nama
 
                 <input
+                  type="text"
                   value={form.nama}
                   onChange={handleChange("nama")}
                   placeholder="Nama lengkap"
+                  required
                 />
               </label>
 
@@ -549,6 +587,7 @@ function Contact() {
                   value={form.email}
                   onChange={handleChange("email")}
                   placeholder="nama@email.com"
+                  required
                 />
               </label>
 
@@ -559,20 +598,27 @@ function Contact() {
                   value={form.pesan}
                   onChange={handleChange("pesan")}
                   placeholder="Tulis pesan kamu"
+                  rows="5"
+                  required
                 />
               </label>
 
               <button
                 type="submit"
                 className="btn fill"
+                disabled={loading}
               >
-                Kirim pesan
+                {loading
+                  ? "Mengirim..."
+                  : "Kirim pesan"
+                }
               </button>
 
               <p className="note">
                 {sent
-                  ? "Aplikasi email kamu akan terbuka dengan pesan siap kirim."
-                  : "Semua kolom wajib diisi."}
+                  ? "Pesan berhasil dikirim! Terima kasih sudah menghubungi"
+                  : "Semua kolom wajib diisi."
+                }
               </p>
 
             </form>
