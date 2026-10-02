@@ -474,7 +474,12 @@ function Contact() {
           <ul className="links">
 
             <li>
-              <a href={`mailto:${contact.email}`}>
+              <a
+                href={`mailto:${contact.email}`}
+                onClick={() => {
+                  window.location.href = `mailto:${contact.email}`;
+                }}
+              >
                 <small>Email</small>
                 {contact.email}
               </a>
