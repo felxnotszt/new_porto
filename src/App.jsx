@@ -1,4 +1,9 @@
 import { useEffect, useState } from "react";
+import beliin from "./assets/images/beliin.png";
+import trip from "./assets/images/trip.png";
+import diabeaware from "./assets/images/diabeaware.png";
+import penerjemah from "./assets/images/penerjemah.png";
+import profile from "./assets/images/Novalden Petra.jpg"
 import "./App.css";
 
 /* =====================================================
@@ -8,7 +13,7 @@ import "./App.css";
 const DATA = {
   nama: "Novalden Petra perdana",
 
-  peran: "Frontend Developer",
+  peran: "Fullstack Developer, Data Engineer, Data Analyst",
 
   singkat:
     "Saya membangun website yang cepat, rapi, dan nyaman dipakai di semua ukuran layar.",
@@ -57,7 +62,7 @@ const DATA = {
       tech: ["React", "Node.js", "API"],
       link: "https://beliin-pi.vercel.app/login",
       warna: "#0f5c54",
-      gambar : "/public/images/beliin.png",
+      gambar : beliin
     },
 
     {
@@ -66,7 +71,7 @@ const DATA = {
       tech: ["React", "Firebase", "Cloud Computing"],
     link: "https://dolanlah.firebaseapp.com/",
       warna: "#b4691f",
-      gambar : "/public/images/trip.png"
+      gambar : trip
     },
 
     {
@@ -75,7 +80,7 @@ const DATA = {
       tech: ["React"],
       link: "https://diabeaware-web.vercel.app/",
       warna: "#3f5f8a",
-      gambar : "/public/images/diabeaware.png"
+      gambar : diabeaware
     },
 
     {
@@ -84,7 +89,7 @@ const DATA = {
       tech: ["Python"],
       link: "https://youtu.be/I58FZDKqyYc?si=DUMhNyobJvL4ojql",
       warna: "#3f5f8a",
-      gambar : "/public/images/penerjemah.png"
+      gambar : penerjemah
     },
   ],
 
@@ -245,7 +250,7 @@ function Hero() {
 
         <div className="portrait">
           <img
-            src="/images/Novalden Petra.jpg"
+            src={profile}
             alt={`Foto profil ${DATA.nama}`}
           />
         </div>
@@ -482,7 +487,7 @@ function Contact() {
                 rel="noopener noreferrer"
               >
                 <small>WhatsApp</small>
-                +{contact.wa}
+                {contact.wa}
               </a>
             </li>
 
