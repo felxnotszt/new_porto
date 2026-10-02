@@ -475,10 +475,9 @@ function Contact() {
 
             <li>
               <a
-                href={`mailto:${contact.email}`}
-                onClick={() => {
-                  window.location.href = `mailto:${contact.email}`;
-                }}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${contact.email}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <small>Email</small>
                 {contact.email}
